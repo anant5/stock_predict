@@ -1,6 +1,6 @@
 # Django Stock Prediction App
 
-![Screenshot](/Screenshot (39).png)
+![Screenshot](screenshot.png)
 
 ## Overview
 
