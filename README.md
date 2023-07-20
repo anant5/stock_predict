@@ -21,12 +21,12 @@ This is a Django web application that predicts stock prices for five different c
 4. Train models by clicking the button so you can get the recent data.
 
 ## Usage
-Visit the homepage to see the stock predictions for the specified companies.
-The table displays past 5 days of historical stock prices and the forecasted next 10 days of stock prices.
-Scroll horizontally within the table to view the full content.
+-Visit the homepage to see the stock predictions for the specified companies.
+-The table displays past 5 days of historical stock prices and the forecasted next 10 days of stock prices.
+-Scroll horizontally within the table to view the full content.
 ## Technologies Used
-Django
-Pandas
-NumPy
-Scikit-learn
-yfinance
+-Django
+-Pandas
+-NumPy
+-Scikit-learn
+-yfinance
