@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>My Selected Stocks</h2>
+  <ul>
+    {% for stock in stocks %}
+      <li>{{ stock }}</li>
+    {% empty %}
+      <li>No stocks selected</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

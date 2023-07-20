@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Future Stock Market Trends{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mb-5">Stock Predictions</h1>
+    {% for stock in stocks %}
+      <div class="card mb-5">
+        <div class="card-header">
+          <h2 class="text-white">{{ stock.name }}</h2>
+        </div>
+        <div class="card-body table-responsive">
+          <div class="row">
+            <center>
+            <div class="col-md-6">
+              <div id="price_chart_{{ stock.name }}"></div>
+            </div></center>
+            
+          </div>
+          <table class="table table-bordered mt-4">
+            <thead class="bg-dark text-white">
+              <tr>
+                {% for date in stock.dates|slice:":10" %}
+                  <th class="text-center">{{ date }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {% for price in stock.prices|slice:":10" %}
+                  <td class="text-center">${{ price }}</td>
+                {% endfor %}
+                {% for forecast in stock.forecast|slice:":10" %}
+                  <td class="text-center">${{ forecast }}</td>
+                {% endfor %}
+              </tr>
+            </tbody>
+          </table>
+          {% if stock.percent_change %}
+            <center><b><td class="col-sm">Returns:  {{ stock.percent_change }}%</td></center></b>
+          {% endif %}
+        </div>
+      </div>
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+      <script>
+        // Combined chart
+        var trace1 = {
+          x: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+          y: [{{ stock.prices|join:', ' }}],
+          mode: 'lines',
+          line: {
+            color: 'blue'
+          },
+          name: 'Price'
+        };
+        
+        var trace2 = {
+          x: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+          y: [{{ stock.forecast|join:', ' }}],
+          mode: 'lines',
+          line: {
+            color: 'orange'
+          },
+          name: 'Forecast'
+        };
+        
+        var data = [trace1, trace2];
+        
+        var layout = {
+          title: 'Price Chart for {{ stock.name }}',
+          xaxis: { title: 'Date', tickmode: 'linear', tick0: 0, dtick: 1 },
+          yaxis: { title: 'Price ($)' }
+        };
+        
+        Plotly.newPlot('price_chart_{{ stock.name }}', data, layout);
+      </script>
+      
+      
+    {% endfor %}
+    <form method="POST" action="{% url 'retrain_model' %}">
+      {% csrf_token %}
+      <center><button class="btn btn-primary mt-4" type="submit">Retrain Model</button></center>
+    </form>
+  </div>
+{%endblock%}

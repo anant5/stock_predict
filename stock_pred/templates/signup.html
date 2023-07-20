@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Select preferred stocks:</p>
+    <ul>
+      {% for stock in stock_list %}
+        <li>
+          <label>
+            <input type="checkbox" name="stocks" value="{{ stock.id }}">
+            {{ stock.name }}
+          </label>
+        </li>
+      {% endfor %}
+    </ul>
+    <button type="submit">Sign up</button>
+  </form>
+{% endblock %}
