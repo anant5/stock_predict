@@ -1,6 +1,6 @@
 # Django Stock Prediction App
 
-![Stock Prediction App Screenshot](/path/to/screenshot.png)
+![Stock Prediction App Screenshot](/Screenshot (39).png)
 
 ## Overview
 
